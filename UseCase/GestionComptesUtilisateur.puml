@@ -13,8 +13,8 @@ rectangle "Gestion des comptes utilisateur" {
 
 Admin --> UC1
 Admin --> UC2
-Admin --> UC3
 User --> UC3
+Admin -|> User
 
 UC3 ..> UC4 :<<include>>
 UC2 ..> UC4 :<<include>>

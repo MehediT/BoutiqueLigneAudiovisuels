@@ -1,0 +1,19 @@
+@startuml
+left to right direction
+
+actor Utilisateur as User
+actor Webmaster as WM
+
+rectangle "Contact et Messagerie" {
+    usecase "Envoyer un mail au webmaster" as UC1
+    usecase "Consulter les coordonnées de l'entreprise" as UC2
+    usecase "Authentification" as UC3
+}
+
+User --> UC1
+User --> UC2
+WM <-- UC1 : ""
+UC2 ..> UC3 :<<include>>
+UC1 ..> UC3 :<<include>>
+
+@enduml
