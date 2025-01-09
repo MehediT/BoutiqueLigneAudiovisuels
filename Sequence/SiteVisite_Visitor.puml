@@ -1,0 +1,57 @@
+@startuml
+actor Visiteur as User
+
+autonumber
+
+title Diagramme de séquence : Visite du site
+
+User -> Interface : Accéder à l'écran général
+activate User
+activate Interface
+Interface -> Systeme : Récupérer les données promotions
+activate Systeme
+Systeme --> Interface : Transmettre les promotions
+Interface --> User : Afficher les promotions
+
+deactivate Systeme
+
+User -> Interface : Sélectionner une catégorie
+activate Interface
+Interface -> Systeme : Récupérer les produits associés
+activate Systeme
+Systeme --> Interface : Transmettre les produits
+Interface --> User : Afficher les produits associés
+
+deactivate Systeme
+
+User -> Interface : Visualiser les détails d'un produit
+activate Interface
+Interface -> Systeme : Récupérer les détails du produit
+activate Systeme
+Systeme --> Interface : Transmettre les détails
+Interface --> User : Afficher les détails
+
+deactivate Systeme
+
+group Authentification requise pour aimer ou acheter un produit
+    User -> Interface : Aimer un produit
+    activate Interface
+    Interface -> Systeme : Vérifier l'authentification
+    activate Systeme
+    Systeme --> Interface : Validation
+    Interface --> User : Produit aimé avec succès
+    deactivate Systeme
+    deactivate Interface
+
+    User -> Interface : Passer commande
+    activate Interface
+    Interface -> Systeme : Authentification et traitement de la commande
+    activate Systeme
+    Systeme --> Interface : Confirmation de commande
+    Interface --> User : Commande passée avec succès
+    deactivate Systeme
+    deactivate Interface
+end
+
+deactivate User
+@enduml
