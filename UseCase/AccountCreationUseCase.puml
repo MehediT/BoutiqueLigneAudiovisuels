@@ -14,9 +14,10 @@ rectangle "System" as System {
     usecase "Authentification" as UC_Authenticate
 }
 
-Visitor --|> User
-Visitor --> UC_CreateAccount
+Visitor -|> User
+
 Visitor --> UC_ViewProducts
+Visitor --> UC_CreateAccount
 
 
 User --> UC_PlaceOrder
