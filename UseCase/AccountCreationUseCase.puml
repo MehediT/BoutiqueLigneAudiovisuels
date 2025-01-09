@@ -9,7 +9,7 @@ rectangle "System" as System {
     usecase "Voir les produits" as UC_ViewProducts
     usecase "Passer une commande" as UC_PlaceOrder
     usecase "Créer un compte" as UC_CreateAccount
-    usecase "Valider un compte" as UC_ValidateAccount
+    usecase "Compte valide" as UC_ValidateAccount
     usecase "Radier un compte" as UC_DeleteAccount
     usecase "Authentification" as UC_Authenticate
 }
@@ -27,5 +27,6 @@ Admin --> UC_DeleteAccount
 
 UC_PlaceOrder ..> UC_Authenticate :<<include>>
 UC_CreateAccount ..> UC_ValidateAccount :<<include>>
+UC_PlaceOrder ..> UC_ValidateAccount :<<include>>
 
 @enduml
