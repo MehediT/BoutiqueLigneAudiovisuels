@@ -1,0 +1,22 @@
+@startuml
+left to right direction
+actor User
+actor Admin
+rectangle "Gestion de Profil" {
+    usecase "Changer Avatar" as UC6
+    usecase "Modier infomation de son compte (sauf adresse mail)" as UC7
+    usecase "Etre authentifié" as UC9
+    usecase "Modifier un compte utilisateur (sauf adresse mail)" as UC8
+}
+
+User --> UC6
+User --> UC7
+UC6 ..> UC9 : <<include>>
+UC7 ..> UC9 : <<include>>
+
+Admin --> UC8
+UC8 ..> UC9 : <<include>>
+Admin --> UC6
+Admin --> UC7
+
+@enduml
