@@ -1,0 +1,31 @@
+@startuml
+
+left to right direction
+
+actor "Visitor" as Visitor
+actor "User" as User
+actor "Admin" as Admin
+rectangle "System" as System {
+    usecase "Voir les produits" as UC_ViewProducts
+    usecase "Passer une commande" as UC_PlaceOrder
+    usecase "Créer un compte" as UC_CreateAccount
+    usecase "Valider un compte" as UC_ValidateAccount
+    usecase "Radier un compte" as UC_DeleteAccount
+    usecase "Authentification" as UC_Authenticate
+}
+
+Visitor --|> User
+Visitor --> UC_CreateAccount
+Visitor --> UC_ViewProducts
+
+
+User --> UC_PlaceOrder
+
+
+Admin --> UC_ValidateAccount
+Admin --> UC_DeleteAccount
+
+UC_PlaceOrder ..> UC_Authenticate :<<include>>
+UC_CreateAccount ..> UC_ValidateAccount :<<include>>
+
+@enduml
