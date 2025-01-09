@@ -9,7 +9,7 @@ rectangle "Accès au site" {
     usecase "gestion des comptes utilisateurs" as UC4
 
     usecase "Changer Avatar" as UC6
-    usecase "authantitification" as UC7
+    usecase "authentication" as UC7
 }
 Admin -|> User
 
