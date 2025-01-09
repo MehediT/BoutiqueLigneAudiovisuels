@@ -1,0 +1,36 @@
+@startuml
+left to right direction
+
+actor Visiteur as User
+
+rectangle "Visite du site" {
+    usecase "Accéder à l'écran général" as accessGeneralScreen
+    usecase "Afficher les promotions" as showPromotion
+
+    usecase "Aimer un produit" as likeProduct
+    usecase "Passer commande d'un produit" as buyProduct
+    usecase "Authentification" as auth
+
+    usecase "Visualiser les produits" as showProduct
+
+    usecase "Visualiser les produits associer" as showProductLink
+    usecase "Sélectionner une catégorie" as selectCategories
+    usecase "Visualiser les détails d'un produit" as showDetailProduct
+
+}
+User --> showProduct
+User --> showProductLink
+User --> likeProduct
+User --> buyProduct
+User --> accessGeneralScreen
+User --> selectCategories
+User --> showDetailProduct
+
+selectCategories .left.> showProductLink :<<include>>
+
+likeProduct ..> auth :<<include>>
+buyProduct ..> auth :<<include>>
+
+accessGeneralScreen --> showPromotion
+
+@enduml
