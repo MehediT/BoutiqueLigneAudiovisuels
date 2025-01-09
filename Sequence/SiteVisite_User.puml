@@ -1,57 +1,30 @@
 @startuml
-actor Visiteur as User
+actor Utilisateur as User
 
 autonumber
 
-title Diagramme de séquence : Visite du site
-
-User -> Interface : Accéder à l'écran général
+title Diagramme de séquence : Visite du site pour les connecter
 activate User
+User -> Interface : Aimer un produit
 activate Interface
-Interface -> Systeme : Récupérer les données promotions
+Interface -> Systeme : Vérifier l'authentification
+
 activate Systeme
-Systeme --> Interface : Transmettre les promotions
+Systeme --> Interface : Validation
 deactivate Systeme
 
-Interface --> User : Afficher les promotions
+Interface --> User : Produit aimé avec succès
+deactivate Interface
 
-
-User -> Interface : Sélectionner une catégorie
-Interface -> Systeme : Récupérer les produits associés
+User -> Interface : Passer commande
+activate Interface
+Interface -> Systeme : Authentification et traitement de la commande
 activate Systeme
-Systeme --> Interface : Transmettre les produits
+
+Systeme --> Interface : Confirmation de commande
 deactivate Systeme
 
-Interface --> User : Afficher les produits associés
-User -> Interface : Visualiser les détails d'un produit
-Interface -> Systeme : Récupérer les détails du produit
-activate Systeme
-Systeme --> Interface : Transmettre les détails
-deactivate Systeme
-Interface --> User : Afficher les détails
-
+Interface --> User : Commande passée avec succès
+deactivate Interface
 deactivate User
 @enduml
-
-
-group Authentification requise pour aimer ou acheter un produit
-    User -> Interface : Aimer un produit
-    activate Interface
-    Interface -> Systeme : Vérifier l'authentification
-    activate Systeme
-    Systeme --> Interface : Validation
-    deactivate Systeme
-
-    Interface --> User : Produit aimé avec succès
-    deactivate Interface
-
-    User -> Interface : Passer commande
-    activate Interface
-    Interface -> Systeme : Authentification et traitement de la commande
-    activate Systeme
-    Systeme --> Interface : Confirmation de commande
-    deactivate Systeme
-
-    Interface --> User : Commande passée avec succès
-    deactivate Interface
-end
