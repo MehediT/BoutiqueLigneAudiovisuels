@@ -11,6 +11,7 @@ rectangle "Accès au site" {
     usecase "Changer Avatar" as UC6
     usecase "authantitification" as UC7
 }
+Admin -|> User
 
 User --> UC3
 UC3 ..> UC2 : <<include>>
