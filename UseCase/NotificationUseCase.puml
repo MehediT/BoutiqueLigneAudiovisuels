@@ -1,0 +1,18 @@
+@startuml
+left to right direction
+
+actor Utilisateur as Utilisateur
+actor Visiteur as Visiteur
+
+rectangle "Notification de l'entreprise" {
+    usecase "Évaluer le site de l'entreprise" as UC1
+    usecase "Visualiser les notes de satisfaction" as UC2
+    usecase "Authentification" as UC3
+}
+
+UC1 ..> UC3 :<<include>>
+Utilisateur --|> Visiteur
+Utilisateur --> UC1 : Donne une note
+Visiteur --> UC2 : Consulte les notes
+
+@enduml

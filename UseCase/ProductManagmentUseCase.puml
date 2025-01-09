@@ -1,0 +1,29 @@
+@startuml
+
+left to right direction
+
+actor "Admin" as Admin
+rectangle "System" as System {
+
+    usecase "Ajouter un produit" as UC_AddProduct
+    usecase "Supprimer un produit" as UC_DeleteProduct
+    usecase "Modifier le prix d'un produit" as UC_EditProduct
+    usecase "Proposer une réduction" as UC_ProposeDiscount
+    usecase "Augmenter le stock" as UC_IncreaseStock
+    usecase "Authentification" as UC_Authenticate
+}
+Admin --> UC_AddProduct
+Admin --> UC_DeleteProduct
+Admin --> UC_EditProduct
+Admin --> UC_IncreaseStock
+
+UC_AddProduct ..> UC_Authenticate :<<include>>
+UC_DeleteProduct ..> UC_Authenticate :<<include>>
+UC_EditProduct ..> UC_Authenticate :<<include>>
+UC_ProposeDiscount ..> UC_Authenticate :<<include>>
+UC_IncreaseStock ..> UC_Authenticate :<<include>>
+
+UC_EditProduct <. UC_ProposeDiscount :<<extend>>
+
+
+@enduml
