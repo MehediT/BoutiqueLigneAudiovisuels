@@ -1,5 +1,8 @@
 @startuml
 actor Utilisateur as User
+participant Interface as Interface
+participant Systeme as Systeme
+actor Webmaster as WM
 
 autonumber
 
