@@ -4,7 +4,7 @@ left to right direction
 actor Utilisateur as Utilisateur
 actor Visiteur as Visiteur
 
-rectangle "Notification de l'entreprise" {
+rectangle "Notation de l'entreprise" {
     usecase "Évaluer le site de l'entreprise" as UC1
     usecase "Visualiser les notes de satisfaction" as UC2
     usecase "Authentification" as UC3
