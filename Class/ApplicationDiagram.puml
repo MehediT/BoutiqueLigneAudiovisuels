@@ -1,27 +1,100 @@
 @startuml
-'https://plantuml.com/class-diagram
 
-abstract class AbstractList
-abstract AbstractCollection
-interface List
-interface Collection
-
-List <|-- AbstractList
-Collection <|-- AbstractCollection
-
-Collection <|- List
-AbstractCollection <|- AbstractList
-AbstractList <|-- ArrayList
-
-class ArrayList {
-Object[] elementData
-size()
+class Boutique {
+    + naviguerApplication(): void
+    + afficherCategories(): void
+    + rechercherProduit(): void
 }
 
-enum TimeUnit {
-DAYS
-HOURS
-MINUTES
+abstract class Compte {
+    - String email
+    - String motDePasse
+    - String nom
+    - String prenom
+    - String avatar
 }
+
+interface Client {
+    + consulterProduits(): void
+    + consulterPromotions(): void
+}
+
+class Utilisateur {
+    - String adressePostale
+    - String telephone
+    + aimerProduit(Produit): void
+    + acheterProduit(Produit): void
+    + validerPanier(): Commande
+    + consulterPanier(): void
+    + radierCompte(): void
+    + creePanier(): void
+}
+
+class Visiteur {
+    + creeCompte(): void
+}
+
+class Administrateur {
+    + gererComptes(Utilisateur u): void
+    + gererProduits(): void
+    + radierCompte(Compte c): void
+}
+
+class Produit {
+    - int idProduit
+    - String nom
+    - String description
+    - double prix
+    - int stock
+    + ajoutNote(Note n): void
+}
+
+class Commande {
+    - int numeroCommande
+    - Date dateCommande
+    - String statut
+}
+
+class Panier {
+    - int numeroPanier
+    + ajouterProduit(Produit p): void
+    + validerCommande(): void
+}
+
+class Categorie {
+    - String nom
+    + afficherProduits(): void
+}
+
+'Relations'
+
+
+class Note {
+    - int noteSatisfaction
+    - String commentaire
+}
+
+class Messagerie {
+    - String message
+    - String contactEmail
+    + envoyerMessage(): void
+}
+Boutique "\n\n\n0..*" -- "1 " Compte
+Boutique "0..*" -- "1" Commande
+Boutique "\n\n\n\n\t0..*" -- "1 " Categorie
+Boutique "\n \n  0..*" -- "1 " Produit
+Administrateur --|> Compte
+Utilisateur --|> Compte
+Visiteur ..|> Client
+Utilisateur ..|> Client
+Produit "*" -- "*" Categorie
+Panier "0..1 " -- "*" Produit
+Commande "1 " -- "0..1     " Panier
+Commande "1 " -- "0..* " Utilisateur
+Client "0..* " -- "1 " Panier
+Produit "0..* " -- "1 " Note
+Messagerie "1" -- "1 " Compte
+
+
 
 @enduml
