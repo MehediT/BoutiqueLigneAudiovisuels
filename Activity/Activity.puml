@@ -1,0 +1,34 @@
+@startuml
+start
+:Afficher écran général;
+if (Utilisateur connecté ?) then (Oui)
+  :Afficher avatar utilisateur;
+  :Proposer options de navigation;
+else (Non)
+  :Proposer connexion/inscription;
+endif
+
+:Choisir une catégorie de produits;
+:Afficher les produits associés;
+
+if (Produit sélectionné ?) then (Oui)
+  :Afficher détails du produit;
+  :Proposer actions (like, commander);
+  if (Commander ?) then (Oui)
+    :Vérifier connexion utilisateur;
+    if (Connecté ?) then (Oui)
+      :Valider commande;
+    else (Non)
+      :Rediriger vers écran de connexion;
+    endif
+  endif
+else (Non)
+  :Retour à l'écran général;
+endif
+
+if (Retourner à l'écran général ?) then (Oui)
+  :Afficher écran général;
+else (Non)
+  stop
+endif
+@enduml

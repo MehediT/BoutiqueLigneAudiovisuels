@@ -3,7 +3,7 @@
 left to right direction
 
 actor "Admin" as Admin
-rectangle "System" as System {
+rectangle "Gestion : produit" as System {
 
     usecase "Ajouter un produit" as UC_AddProduct
     usecase "Supprimer un produit" as UC_DeleteProduct

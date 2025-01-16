@@ -1,0 +1,34 @@
+@startuml
+actor Visiteur as Visitor
+
+autonumber
+
+title Diagramme de séquence : Visite du site pour tous les visiteurs
+
+Visitor -> Interface : Accéder à l'écran général
+activate Visitor
+activate Interface
+Interface -> Systeme : Récupérer les données promotions
+activate Systeme
+Systeme --> Interface : Transmettre les promotions
+deactivate Systeme
+
+Interface --> Visitor : Afficher les promotions
+
+
+Visitor -> Interface : Sélectionner une catégorie
+Interface -> Systeme : Récupérer les produits associés
+activate Systeme
+Systeme --> Interface : Transmettre les produits
+deactivate Systeme
+
+Interface --> Visitor : Afficher les produits associés
+Visitor -> Interface : Visualiser les détails d'un produit
+Interface -> Systeme : Récupérer les détails du produit
+activate Systeme
+Systeme --> Interface : Transmettre les détails
+deactivate Systeme
+Interface --> Visitor : Afficher les détails
+
+deactivate Visitor
+@enduml

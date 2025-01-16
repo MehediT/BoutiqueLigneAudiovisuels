@@ -1,0 +1,36 @@
+@startuml
+actor Utilisateur as User
+participant Interface as Interface
+participant Systeme as Systeme
+actor Webmaster as WM
+
+autonumber
+
+title Diagramme de séquence : Envoyer un mail au webmaster
+
+loop Tentatives de connexion
+    User -> Interface : Se connecter
+    activate User
+    activate Interface
+    Interface -> Systeme : Vérifier les identifiants
+    activate Systeme
+    Systeme --> Interface : Validation ou échec
+    deactivate Systeme
+    Interface --> User : Résultat de la connexion
+    deactivate Interface
+end
+
+User -> Interface : Remplir formulaire de contact
+activate Interface
+Interface -> Systeme : Envoi des données du formulaire
+activate Systeme
+Systeme -> WM : Transmettre le message
+activate WM
+WM --> Systeme : Confirmation de réception
+deactivate WM
+Systeme --> Interface : Confirmation d'envoi
+deactivate Systeme
+Interface --> User : Message envoyé avec succès
+deactivate Interface
+
+@enduml

@@ -16,7 +16,7 @@ rectangle "System" as System {
 
 Visitor -|> User
 
-Visitor --> UC_ViewProducts
+User --> UC_ViewProducts
 Visitor --> UC_CreateAccount
 
 

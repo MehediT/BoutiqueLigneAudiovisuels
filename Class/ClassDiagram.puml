@@ -1,0 +1,129 @@
+@startuml
+hide circle
+
+class Boutique {
+    + naviguerApplication(): void
+    + afficherCategories(): void
+    + rechercherProduit(): void
+}
+
+abstract class Compte <<abstract>> {
+    - String email
+    - String motDePasse
+    - String nom
+    - String prenom
+    - String avatar
+    + envoyerMessage(): void
+}
+
+interface Client <<interface>>{
+    + consulterProduits(): void
+    + consulterPromotions(): void
+}
+
+class Utilisateur {
+    - String adressePostale
+    - String telephone
+    + aimerProduit(Produit): void
+    + acheterProduit(Produit): void
+    + validerPanier(): Commande
+    + consulterPanier(): void
+    + radierCompte(): void
+    + creePanier(): void
+}
+
+class Visiteur {
+    + creeCompte(): void
+}
+
+class Administrateur {
+    + gererComptes(Utilisateur u): void
+    + gererProduits(): void
+    + radierCompte(Compte c): void
+}
+
+class Produit {
+    - int idProduit
+    - String nom
+    - String description
+    - double prix
+    - int stock
+    + ajoutNote(Note n): void
+}
+
+class Commande {
+    - int numeroCommande
+    - Date dateCommande
+    - String statut
+}
+
+class Panier {
+    - int numeroPanier
+    + ajouterProduit(Produit p): void
+    + validerCommande(): void
+}
+
+class Categorie {
+    - String nom
+    + afficherProduits(): void
+}
+
+'------------------------------------------------
+'Relations
+
+class Note {
+    - int noteSatisfaction
+    - String commentaire
+}
+
+class Message {
+    - String message
+    - String contactEmail
+}
+
+'------------------------------------------------
+' Noms d'associations
+'Y a des espaces pour aligner les noms
+
+' Boutique gère plusieurs comptes
+Boutique "0..*  " -- "1  " Compte : "gère"
+
+' Boutique contient plusieurs commandes
+Boutique "0..*" -- "1     " Commande : " contient"
+
+' Boutique regroupe plusieurs catégories
+Boutique "0..*" -- "1" Categorie : " regroupe"
+
+' Boutique propose plusieurs produits
+Boutique "0..*" -- "     1" Produit : " propose"
+
+' Héritage / spécialisation
+Administrateur --|> Compte
+Utilisateur --|> Compte
+
+' Implémentation de l'interface Client
+Visiteur ..|> Client
+Utilisateur ..|> Client
+
+' Un produit peut appartenir à plusieurs catégories, et vice versa
+Produit "*" -- "*" Categorie : "appartient"
+
+' Un panier (0..1) peut contenir plusieurs produits
+Panier "0..1 " -- "\t* " Produit : " contient"
+
+' Une commande (1) est liée à un panier (0..1)
+Commande "1" -- "0..1" Panier : " est liée à"
+
+' Une commande est passée par plusieurs utilisateurs éventuels (ou un)
+Commande "1 " -- "0..* " Utilisateur : " passe"
+
+' Un client possède un ou plusieurs paniers
+Client "0..*" -- "1  " Panier : "possède\n"
+
+' Plusieurs notes pour un même produit
+Produit "0..* " -- "1 " Note : " note"
+
+' Un compte est lié à une messagerie
+Message "1" --> "1\n" Compte : "associée à"
+
+@enduml
