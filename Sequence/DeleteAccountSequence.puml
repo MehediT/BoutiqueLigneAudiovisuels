@@ -1,0 +1,10 @@
+@startuml
+
+actor Admin
+participant "System" as System
+
+Admin -> System : Demande de radiation d'un compte
+System -> System : Vérifier le compte ciblé
+System -> Admin : Confirmer ou notifier l'échec de la radiation
+
+@enduml

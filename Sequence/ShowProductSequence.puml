@@ -1,0 +1,9 @@
+@startuml
+
+actor Visitor
+participant "System" as System
+
+Visitor -> System : Demander à voir les produits
+System -> Visitor : Retourner la liste des produits
+
+@enduml

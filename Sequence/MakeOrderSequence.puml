@@ -1,0 +1,16 @@
+@startuml
+
+actor User
+participant "System" as System
+
+ref over User, System : Authentification
+
+alt Authentification réussie
+    User -> System : Passer une commande
+    System -> System : Vérifier la validité du compte
+    System -> User : Confirmer la commande
+else Authentification échouée
+    System -> User : Échec de la commande
+end
+
+@enduml

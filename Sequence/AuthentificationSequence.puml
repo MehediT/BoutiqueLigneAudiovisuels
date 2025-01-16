@@ -1,0 +1,10 @@
+@startuml
+
+actor User
+participant "System" as System
+
+User -> System : Fournir les informations d'identification
+System -> System : Vérifier les informations
+System -> User : Résultat de l'authentification
+
+@enduml

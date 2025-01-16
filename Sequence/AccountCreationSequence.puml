@@ -1,0 +1,13 @@
+@startuml
+
+actor Visitor
+participant "System" as System
+actor Admin
+
+Visitor -> System : Demande de création de compte
+System -> System : Vérifier les données du compte
+System -> Admin : Demande de validation du compte
+Admin -> System : Confirmer ou rejeter la validation
+System -> Visitor : Confirmer la création ou notifier l'échec
+
+@enduml
