@@ -1,4 +1,5 @@
 @startuml
+top to bottom direction
 [*] --> EnStock : Produit ajouté
 
 EnStock --> EnPromotion : Promotion activée
@@ -8,7 +9,10 @@ EnPromotion --> EnStock : Promotion terminée
 EnPromotion --> HorsStock : Stock épuisé
 
 HorsStock --> Supprimé : Produit supprimé
+HorsStock --> Recommande : Produit recommandé
 
-HorsStock --> EnStock : Réapprovisionnement
+Recommande --> EnStock : Réapprovisionnement effectué
+
 Supprimé --> [*] : Fin du cycle
 @enduml
+
