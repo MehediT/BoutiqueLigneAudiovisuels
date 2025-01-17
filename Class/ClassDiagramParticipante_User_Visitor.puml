@@ -1,6 +1,6 @@
 @startuml
 'hide circle
-hide @unlinked
+'hide @unlinked
 skinparam linetype ortho
 skinparam lineStyle jumps
 
@@ -75,36 +75,6 @@ class InscriptionIHM {
 }
 
 
-class GestionDesProduitsIHM {
-+ afficherGestionDesProduits(): void
-
-}
-
-class GestionDesComptesIHM {
-+ afficherGestionDesComptes(): void
-
-}
-class GestionDetailleComptesIHM {
-+ afficherGestionDetailleCompte(): void
-
-    }
-
-class GestionDesCategoriesIHM {
-+ afficherGestionDesCategories(): void
-
-}
-
-class GestionDetailleProduitIHM {
-+ afficherGestionDetailleProduit(): void
-
-}
-
-class HomeAdminIHM {
-+ afficherHomeAdmin(): void
-
-}
-
-
 
 
 '-------------------Controleur-------------------'
@@ -152,37 +122,6 @@ class NavigationControleur {
 }
 
 
-class HomeAdminControleur {
-+ getAdminStatistique(): void
-}
-
-class GestionDesProduitsControleur {
-+ modifierProduit(): void
-+ supprimerProduit(): void
-
-}
-
-class GestionCompteControleur {
-+ validerCompes(): void
-+ supprimerCompte(): void
-
-}
-class GestionDetailleCompteControleur {
-+ validerCompes(): void
-+ modifierCompte(): void
-+ supprimerCompte(): void
-
-  }
-
-class GestionDesCategoriesControleur {
-+ ajouterCategorie(): void
-+ supprimerCategorie(): void
-
- }
-
-
-
-
 
 
 
@@ -192,89 +131,53 @@ class GestionDesCategoriesControleur {
 'ProduitIHM -- DetailleProduitIHM
 'CategorieIHM -r- PanierIHM
 
-'NavigationControleur <--> ContacteIHM
-'NavigationControleur <--> ProduitIHM
-'NavigationControleur <--> CategorieIHM
-'NavigationControleur <--> DetailleProduitIHM
-'NavigationControleur <--> PanierIHM
-'NavigationControleur <--> HomeIHM
-'NavigationControleur <--> ConnexionIHM
-NavigationControleur <--> HomeAdminIHM
-NavigationControleur <--> GestionDesProduitsIHM
-NavigationControleur <--> GestionDesComptesIHM
-NavigationControleur <--> GestionDesCategoriesIHM
+NavigationControleur <--> ContacteIHM
+NavigationControleur <--> ProduitIHM
+NavigationControleur <--> CategorieIHM
+NavigationControleur <--> DetailleProduitIHM
+NavigationControleur <--> PanierIHM
+NavigationControleur <--> HomeIHM
+NavigationControleur <--> ConnexionIHM
 
-'
-'
-'
-'ContacteIHM --> ContacteControleur
-'ContacteIHM --> CompteControleur
-'
-'ContacteControleur --> Message
+
+
+ContacteIHM --> ContacteControleur
+ContacteIHM --> CompteControleur
+
+ContacteControleur --> Message
 CompteControleur --> Compte
-'
-'ProduitIHM --> ProduitControleur
-'
+
+ProduitIHM --> ProduitControleur
+
 ProduitControleur --> Produit
-'ProduitControleur --> Categorie
-'
-'CategorieIHM --> ProduitControleur
-'
-'DetailleProduitIHM --> ProduitControleur
-'DetailleProduitIHM --> PanierControleur
-'
-'PanierIHM --> PanierControleur
-'PanierIHM -- AchatIHM
-'
-'PanierControleur --> Panier
-'
-'AchatIHM --> AchatControleur
-'AchatIHM -- ResultatPaymenetIHM
-'
-'ResultatPaymenetIHM <-- AchatControleur
-'ResultatPaymenetIHM --> CommandeControleur
-'
-'CommandeControleur --> Commande
-'
-'ConnexionIHM --> ConnexionControleur
-'ConnexionIHM --> InscriptionIHM
-'
-'
-'ConnexionControleur --> Compte
-'ConnexionControleur --> HomeIHM
-'
-'InscriptionIHM --> CompteControleur
+ProduitControleur --> Categorie
+
+CategorieIHM --> ProduitControleur
+
+DetailleProduitIHM --> ProduitControleur
+DetailleProduitIHM --> PanierControleur
+
+PanierIHM --> PanierControleur
+PanierIHM -- AchatIHM
+
+PanierControleur --> Panier
+
+AchatIHM --> AchatControleur
+AchatIHM -- ResultatPaymenetIHM
+
+ResultatPaymenetIHM <-- AchatControleur
+ResultatPaymenetIHM --> CommandeControleur
+
+CommandeControleur --> Commande
+
+ConnexionIHM --> ConnexionControleur
+ConnexionIHM --> InscriptionIHM
 
 
-HomeAdminIHM --> HomeAdminControleur
-HomeAdminControleur --> Produit
-HomeAdminControleur --> Compte
-HomeAdminControleur --> Commande
+ConnexionControleur --> Compte
+ConnexionControleur --> HomeIHM
 
-GestionDesProduitsIHM --> ProduitControleur
-GestionDesProduitsIHM --> GestionDesProduitsControleur
-GestionDesProduitsIHM --> GestionDetailleProduitIHM
-GestionDesComptesIHM -- GestionDetailleComptesIHM
-
-GestionDesProduitsControleur --> Produit
-
-
-GestionDetailleProduitIHM --> ProduitControleur
-GestionDetailleProduitIHM --> GestionDesProduitsControleur
-
-GestionDesComptesIHM --> CompteControleur
-GestionDesComptesIHM --> GestionCompteControleur
-
-GestionCompteControleur --> Compte
-
-GestionDetailleComptesIHM --> CompteControleur
-GestionDetailleComptesIHM --> GestionDetailleCompteControleur
-
-GestionDetailleCompteControleur --> Compte
-
-GestionDesCategoriesIHM --> ProduitControleur
-GestionDesCategoriesIHM --> GestionDesCategoriesControleur
-GestionDesCategoriesControleur --> Categorie
+InscriptionIHM --> CompteControleur
 
 
 
@@ -297,18 +200,6 @@ interface Client <<interface>>{
 
 }
 
-class Utilisateur {
-    - String adressePostale
-
-}
-
-class Visiteur {
-
-}
-
-class Administrateur {
-
-}
 
 class Produit {
     - int idProduit
@@ -338,11 +229,6 @@ class Categorie {
 '
 ''------------------------------------------------
 'Relations
-
-class Note {
-    - int noteSatisfaction
-    - String commentaire
-}
 
 class Message {
     - String message
