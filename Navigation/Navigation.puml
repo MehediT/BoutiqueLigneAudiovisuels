@@ -1,0 +1,53 @@
+@startuml
+start
+
+:Home Page;
+if (Order Audiovisual Material?) then (yes)
+  :Material Catalog;
+  if (Select Category?) then (yes)
+    :Category Page;
+    if (Select Item?) then (yes)
+      :Product Page;
+      if (Add to Cart?) then (yes)
+        :Cart Page;
+        if (Proceed to Checkout?) then (yes)
+          :Checkout Page;
+          if (Enter Payment Details?) then (yes)
+            :Order Confirmation Page;
+          else (no)
+            :Cart Page;
+          endif
+        else (no)
+          :Material Catalog;
+        endif
+      else (no)
+        :Material Catalog;
+      endif
+    else (no)
+      :Material Catalog;
+    endif
+  else (no)
+    :Home Page;
+  endif
+else (no)
+  if (Contact Us?) then (yes)
+    :Contact Form Page;
+  else (no)
+    :Home Page;
+  endif
+endif
+
+:Dashboard Access;
+if (View Statistics?) then (yes)
+  :Statistics Page;
+  if (View Detailed Report?) then (yes)
+    :Detailed Report Page;
+  else (no)
+    :Statistics Page;
+  endif
+else (no)
+  :Dashboard;
+endif
+
+stop
+@enduml
