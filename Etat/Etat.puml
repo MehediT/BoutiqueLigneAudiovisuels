@@ -1,18 +1,39 @@
 @startuml
 top to bottom direction
-[*] --> EnStock : Produit ajouté
 
-EnStock --> EnPromotion : Promotion activée
-EnStock --> HorsStock : Stock épuisé
+state Création
+state HorsStock
+state EnPromotion
+state Commande
+state Approvisionnement
+state Supprimé
+state Obsolète
+state Annulation
 
+[*] -d-> Création : Produit ajouté au catalogue
+Création -d-> EnStock : Stock initial
+
+EnStock -d-> HorsStock : Stock épuisé
+EnStock -l-> EnPromotion : Promotion activée
 EnPromotion --> EnStock : Promotion terminée
-EnPromotion --> HorsStock : Stock épuisé
+
+EnStock --> Commande : Commande effectuée
+Commande --> EnStock : Retirer produit du stock
+Commande --> HorsStock : Stock insuffisant
+Commande --> Annulation : Commande annulée
+
+Approvisionnement -l-> EnStock : Réapprovisionnement effectué
 
 HorsStock --> Supprimé : Produit supprimé
-HorsStock --> Recommande : Produit recommandé
+HorsStock --> Approvisionnement : Produit recommandé
+HorsStock --> EnPromotion : Promotion sur produit épuisé
+Supprimé --> EnStock : Réintroduction produit
+Supprimé --> Obsolète : Produit définitivement arrêté
 
-Recommande --> EnStock : Réapprovisionnement effectué
+Annulation --> EnStock : Produit restocké
 
-Supprimé --> [*] : Fin du cycle
+
+
+Obsolète --> [*] : Fin définitive
+
 @enduml
-
