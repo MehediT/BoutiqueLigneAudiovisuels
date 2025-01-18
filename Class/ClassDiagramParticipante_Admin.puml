@@ -107,6 +107,7 @@ GestionDesCategoriesControleur --> Categorie
 '------------------- Class / Entity -------------------'
 
 abstract class Compte <<entity>><<abstract>> {
+    - int id
     - String email
     - String motDePasse
     - String nom
@@ -114,7 +115,7 @@ abstract class Compte <<entity>><<abstract>> {
     - String avatar
 }
 class Produit <<entity>>{
-    - int idProduit
+    - int id
     - String nom
     - String description
     - double prix
@@ -122,11 +123,13 @@ class Produit <<entity>>{
     - boolean promotion
 }
 class Commande <<entity>> {
-    - int numeroCommande
+    - int id
+    - String numeroCommande
     - Date dateCommande
     - String statut
 }
 class Categorie <<entity>> {
+    - int id
     - String nom
 }
 

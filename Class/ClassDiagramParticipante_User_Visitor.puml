@@ -179,15 +179,12 @@ ConnexionControleur --> HomeIHM
 
 InscriptionIHM --> CompteControleur
 
-
-
-
 class BoutiqueEntity {
-
 
 }
 
 abstract class Compte <<abstract>> {
+    - int id
     - String email
     - String motDePasse
     - String nom
@@ -202,35 +199,36 @@ interface Client <<interface>>{
 
 
 class Produit {
-    - int idProduit
+    - int id
     - String nom
     - String description
     - double prix
     - int stock
     - boolean promotion
-
 }
 
 class Commande {
-    - int numeroCommande
+    - int id
+    - String numeroCommande
     - Date dateCommande
     - String statut
 }
 
 class Panier {
+    - int id
     - int numeroPanier
-
 }
 
 class Categorie {
+    - int id
     - String nom
-
 }
 '
 ''------------------------------------------------
 'Relations
 
 class Message {
+    - int id
     - String message
     - String contactEmail
 }
