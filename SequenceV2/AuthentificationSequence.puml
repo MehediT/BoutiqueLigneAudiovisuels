@@ -1,0 +1,36 @@
+@startuml
+!theme plain
+autonumber
+
+actor "Utilisateur" as U
+participant "ConnexionIHM" as CIHM
+participant "ConnexionControleur" as CC
+participant "Compte" as C
+
+title Diagramme de séquence : Authentification
+
+U -> CIHM : Fournir email/motDePasse
+activate U
+activate CIHM
+
+CIHM -> CC : validerConnexion(email, password)
+activate CC
+
+CC -> C : vérifierIdentifiants(email, password)
+activate C
+
+alt Identifiants corrects
+    C --> CC : [OK]
+    CC --> CIHM : Authentification validée
+    CIHM --> U : "Connexion réussie"
+else Identifiants incorrects
+    C --> CC : [KO]
+    CC --> CIHM : Authentification échouée
+    CIHM --> U : "Echec de connexion"
+end
+
+deactivate C
+deactivate CC
+deactivate CIHM
+deactivate U
+@enduml

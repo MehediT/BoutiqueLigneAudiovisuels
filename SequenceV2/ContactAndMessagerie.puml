@@ -1,0 +1,42 @@
+@startuml
+!theme plain
+autonumber
+
+actor "User" as U
+participant "ConnexionIHM" as ConnIHM
+participant "ContacteIHM" as CIHM
+participant "ContacteControleur" as CCTRL
+participant "Message" as M
+actor "Administrateur" as A
+
+title Diagramme de séquence : Envoyer un message
+
+ref over U, ConnIHM : Authentification
+
+U -> CIHM : Ouvrir formulaire de contact
+activate U
+activate CIHM
+
+CIHM -> CCTRL : validerMessage(donnéesFormulaire)
+activate CCTRL
+
+CCTRL -> M : créerMessage(donnéesFormulaire)
+activate M
+M --> CCTRL : [Message créé]
+deactivate M
+
+CCTRL --> CIHM : Confirmation "Message envoyé"
+deactivate CCTRL
+
+CIHM --> U : Afficher "Votre message a bien été envoyé"
+deactivate CIHM
+deactivate U
+
+A -> CCTRL : Consulter les messages reçus
+activate A
+CCTRL -> M : getMessagesNonLus()
+M --> CCTRL : [Liste des messages]
+CCTRL --> A : Transmet la liste des messages
+deactivate CCTRL
+deactivate A
+@enduml

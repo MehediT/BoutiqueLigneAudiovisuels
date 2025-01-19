@@ -1,0 +1,52 @@
+@startuml
+!theme plain
+autonumber
+
+actor "Administrateur" as A
+participant "ConnexionIHM" as ConnIHM
+participant "ConnexionControleur" as ConnCTRL
+participant "Compte" as C
+participant "GestionCompteControleur" as GCC
+
+title Diagramme de séquence : Authentification + Radiation d'un compte
+
+A -> ConnIHM : Fournir email/motDePasse admin
+activate A
+activate ConnIHM
+
+ConnIHM -> ConnCTRL : validerConnexion(adminEmail, adminPass)
+activate ConnCTRL
+
+ConnCTRL -> C : vérifierIdentifiants(adminEmail, adminPass)
+activate C
+
+alt Identifiants corrects
+    C --> ConnCTRL : [OK]
+    ConnCTRL --> ConnIHM : Authentification validée
+    ConnIHM --> A : "Connexion réussie"
+
+    A -> GCC : demanderRadiation(idCompteCible)
+    activate GCC
+    GCC -> C : vérifierCompte(idCompteCible)
+
+    alt Compte valide
+        C --> GCC : [OK]
+        GCC --> A : "Compte radié avec succès"
+        GCC -> C : supprimerCompte(idCompteCible)
+    else Compte invalide
+        C --> GCC : [KO]
+        GCC --> A : "Echec : compte introuvable"
+    end
+
+    deactivate GCC
+else Identifiants incorrects
+    C --> ConnCTRL : [KO]
+    ConnCTRL --> ConnIHM : "Echec de connexion"
+    ConnIHM --> A : "Identifiants incorrects"
+end
+
+deactivate C
+deactivate ConnCTRL
+deactivate ConnIHM
+deactivate A
+@enduml

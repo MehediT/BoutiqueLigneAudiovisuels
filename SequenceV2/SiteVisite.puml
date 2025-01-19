@@ -1,0 +1,31 @@
+@startuml
+actor Utilisateur as User
+
+autonumber
+
+title Diagramme de séquence : Visite du site pour les connecter
+activate User
+
+User -> Interface : Aimer un produit
+activate Interface
+Interface -> Systeme : Vérifier l'authentification
+
+activate Systeme
+Systeme --> Interface : Validation
+deactivate Systeme
+
+Interface --> User : Produit aimé avec succès
+deactivate Interface
+
+User -> Interface : Passer commande
+activate Interface
+Interface -> Systeme : Authentification et traitement de la commande
+activate Systeme
+
+Systeme --> Interface : Confirmation de commande
+deactivate Systeme
+
+Interface --> User : Commande passée avec succès
+deactivate Interface
+deactivate User
+@enduml

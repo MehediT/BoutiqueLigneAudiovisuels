@@ -1,0 +1,41 @@
+@startuml
+!theme plain
+autonumber
+
+actor "Visiteur" as V
+participant "ProduitIHM" as PIHM
+participant "ProduitControleur" as PCTRL
+participant "Produit" as P
+
+title Diagramme de séquence : Afficher les produits
+
+V -> PIHM : Demander à voir la liste des produits
+activate V
+activate PIHM
+
+PIHM -> PCTRL : getProduits()
+activate PCTRL
+
+PCTRL -> P : listerProduits() 
+activate P
+P --> PCTRL : [Collection de produits]
+deactivate P
+
+PCTRL --> PIHM : [Retourne la liste de produits]
+deactivate PCTRL
+
+PIHM --> V : Afficher la liste des produits
+alt Produits disponibles
+    V -> PIHM : Sélection d'un produit
+    PIHM -> PCTRL : getDétailsProduit(idProduit)
+    PCTRL -> P : rechercherParId(idProduit)
+    P --> PCTRL : [Détails du produit]
+    PCTRL --> PIHM : [Infos du produit]
+    PIHM --> V : Afficher détails
+else Aucun produit
+    PIHM --> V : "Aucun produit disponible"
+end
+
+deactivate PIHM
+deactivate V
+@enduml
