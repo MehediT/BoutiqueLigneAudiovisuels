@@ -1,5 +1,4 @@
 @startuml
-hide circle
 
 class Boutique {
     + naviguerApplication(): void

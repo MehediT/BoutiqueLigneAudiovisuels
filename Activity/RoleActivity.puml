@@ -1,0 +1,47 @@
+@startuml
+|Visiteur|
+start
+:Afficher écran général;
+
+if (Continuer en tant que visiteur ?) then (Oui)
+  :Proposer options de navigation;
+  while (Prêt à passer commande) is (Non)
+    :Sélectionner catégorie;
+    :Voir liste produits;
+    :Voir détails produit;
+    :Ajouter au panier;
+  endwhile
+  stop
+else (Non)
+  :Proposer connexion/inscription;
+  if (Visiteur ?) then (Oui)
+    :Renseigner informations;
+    stop
+  else
+    |Utilisateur|
+    if (Utilisateur ?) then (Oui)
+      repeat :Valider commande;
+        :Saisir livraison;
+        :Saisir paiement;
+      backward:Annulation;
+      repeat while (Confirmation paiement) is (Erreur) not (Paiement confirmé);
+        :Envoyer confirmation;
+      stop
+    else
+      |Administrateur|
+      if (Proposer une action administrative ?) then (Validation de compte)
+        :Vérifier informations utilisateur;
+        if (Valide ?) then (Oui)
+          :Créer compte utilisateur;
+        else
+          :Compte non créé;
+        endif
+      else (Gestion des stocks)
+        :Gérer stock (promotion, ajout, suppression, modification);
+      endif
+      stop
+    endif
+  endif
+endif
+stop
+@enduml
