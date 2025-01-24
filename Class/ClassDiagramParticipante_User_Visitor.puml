@@ -1,6 +1,6 @@
 @startuml
 'hide circle
-'hide @unlinked
+hide @unlinked
 skinparam linetype ortho
 skinparam lineStyle jumps
 

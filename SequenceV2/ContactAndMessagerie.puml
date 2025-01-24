@@ -3,7 +3,6 @@
 autonumber
 
 actor "User" as U
-participant "ConnexionIHM" as ConnIHM
 participant "ContacteIHM" as CIHM
 participant "ContacteControleur" as CCTRL
 participant "Message" as M
@@ -11,7 +10,7 @@ actor "Administrateur" as A
 
 title Diagramme de séquence : Envoyer un message
 
-ref over U, ConnIHM : Authentification
+ref over U : Authentification
 
 U -> CIHM : Ouvrir formulaire de contact
 activate U

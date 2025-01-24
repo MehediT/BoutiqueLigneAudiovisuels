@@ -7,7 +7,6 @@ participant "InscriptionIHM" as IHM
 participant "CompteControleur" as CC
 participant "Compte" as C
 actor "Administrateur" as A
-participant "GestionCompteControleur" as GCC
 
 title Diagramme de séquence : Création de compte
 
@@ -20,31 +19,28 @@ activate CC
 
 CC -> C : créerCompte(donnéesVisiteur)
 activate C
+C --> A : [Notification de création de Compte]
 C --> CC : [Compte créé en attente de validation]
 deactivate C
 
 CC --> IHM : Retour "Compte en attente de validation"
 deactivate CC
-IHM --> V : Afficher "Votre demande a été envoyée"
+IHM --> V : Afficher "Compte créé (mais peut-être révoqué si admin invalide)"
 deactivate IHM
 deactivate V
 
-A -> GCC : validerCompte(idCompte)
+A -> C : vérifierCompte(idCompte)
 activate A
-activate GCC
-GCC -> C : vérifierCompte(idCompte)
 activate C
 
 alt Compte valide
-    C --> GCC : [OK, compte valide]
-    GCC --> A : Confirmer la validation
-    GCC --> C : mettreÀJourStatutCompte(VALIDÉ)
+    C --> A : [OK, compte valide]
+    A -> C : mettreÀJourStatutCompte(Compte c, StatutCompte.VALIDE)
 else Compte invalide
-    C --> GCC : [KO, compte inexistant ou invalide]
-    GCC --> A : Rejeter la validation
+    C --> A : [KO, compte inexistant ou invalide]
+    A -> C : rejeterCompte()
 end
 
 deactivate C
-deactivate GCC
 deactivate A
 @enduml

@@ -3,25 +3,19 @@
 autonumber
 
 actor "Utilisateur" as U
-participant "ConnexionIHM" as ConnIHM
-participant "ConnexionControleur" as ConnCTRL
 participant "DetailleProduitIHM" as DPIHM
 participant "Note" as N
 actor "Visiteur" as V
 
 title Diagramme de séquence : Évaluer le site
+activate U
+ref over U : Authentification
 
-ref over U, ConnIHM, ConnCTRL : Authentification
+U -> DPIHM : Saisir note de satisfaction
+activate DPIHM
+DPIHM -> N : enregistrerNote(note, commentaire, idUser)
+deactivate DPIHM
 
-alt Authentification réussie
-    U -> DPIHM : Saisir note de satisfaction
-    activate DPIHM
-    DPIHM -> N : enregistrerNote(note, commentaire, idUser)
-    deactivate DPIHM
-else Authentification échouée
-    ConnCTRL --> ConnIHM : "Echec de connexion"
-    ConnIHM --> U : "Impossible d'évaluer"
-end
 
 V -> DPIHM : Consulter notes de satisfaction
 activate V
