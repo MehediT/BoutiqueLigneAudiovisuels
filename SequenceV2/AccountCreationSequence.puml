@@ -1,0 +1,46 @@
+@startuml
+!theme plain
+autonumber
+
+actor "Visiteur" as V
+participant "InscriptionIHM" as IHM
+participant "CompteControleur" as CC
+participant "Compte" as C
+actor "Administrateur" as A
+
+title Diagramme de séquence : Création de compte
+
+V -> IHM : Cliquer sur "Créer un compte"
+activate V
+activate IHM
+
+IHM -> CC : validerInscription(donnéesVisiteur)
+activate CC
+
+CC -> C : créerCompte(donnéesVisiteur)
+activate C
+C --> A : [Notification de création de Compte]
+C --> CC : [Compte créé en attente de validation]
+deactivate C
+
+CC --> IHM : Retour "Compte en attente de validation"
+deactivate CC
+IHM --> V : Afficher "Compte créé (mais peut-être révoqué si admin invalide)"
+deactivate IHM
+deactivate V
+
+A -> C : vérifierCompte(idCompte)
+activate A
+activate C
+
+alt Compte valide
+    C --> A : [OK, compte valide]
+    A -> C : mettreÀJourStatutCompte(Compte c, StatutCompte.VALIDE)
+else Compte invalide
+    C --> A : [KO, compte inexistant ou invalide]
+    A -> C : rejeterCompte()
+end
+
+deactivate C
+deactivate A
+@enduml

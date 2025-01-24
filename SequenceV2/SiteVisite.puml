@@ -1,0 +1,17 @@
+@startuml
+!theme plain
+autonumber
+
+actor Utilisateur as User
+title Diagramme de séquence : Visite du site
+
+opt
+    ref over User : Authentification
+end
+activate User
+User -> NavigationControleur : Naviguer sur le site
+activate NavigationControleur
+NavigationControleur --> User : Page (rediriger vers une page)
+deactivate NavigationControleur
+deactivate User
+@enduml

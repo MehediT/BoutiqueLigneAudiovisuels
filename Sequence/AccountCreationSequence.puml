@@ -5,9 +5,23 @@ participant "System" as System
 actor Admin
 
 Visitor -> System : Demande de création de compte
-System -> System : Vérifier les données du compte
+
+alt Vérification des données du compte
+    System -> System : Vérifier les données du compte
+    loop Données invalides
+        System -> Visitor : Notifier des erreurs dans les données
+        Visitor -> System : Soumettre à nouveau les données
+    end
+end
+
 System -> Admin : Demande de validation du compte
-Admin -> System : Confirmer ou rejeter la validation
-System -> Visitor : Confirmer la création ou notifier l'échec
+
+alt Validation par l'Admin
+    Admin -> System : Confirmer la validation
+    System -> Visitor : Confirmer la création
+else Rejet par l'Admin
+    Admin -> System : Rejeter la validation
+    System -> Visitor : Notifier l'échec
+end
 
 @enduml

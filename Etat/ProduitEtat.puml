@@ -1,0 +1,20 @@
+@startuml
+'À mettre dans le rapport pour illustrer la class commme dans le cours
+
+class Produit {
+    + ajouterAuCatalogue() : void
+    + initialiserStock() : void
+    + epuiserStock() : void
+    + activerPromotion() : void
+    + terminerPromotion() : void
+    + effectuerCommande() : void
+    + retirerProduitStock() : void
+    + annulerCommande() : void
+    + recommanderProduit() : void
+    + reapprovisionner() : void
+    + supprimerProduit() : void
+    + reintroduireProduit() : void
+    + rendreObsolete() : void
+}
+
+@enduml

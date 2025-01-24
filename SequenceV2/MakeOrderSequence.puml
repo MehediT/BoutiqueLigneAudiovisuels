@@ -1,0 +1,47 @@
+@startuml
+!theme plain
+autonumber
+
+actor "Utilisateur" as U
+participant "PanierIHM" as PIHM
+participant "PanierControleur" as PCTRL
+participant "AchatIHM" as AIHM
+participant "AchatControleur" as ACTRL
+participant "CommandeControleur" as CCMD
+participant "Commande" as CMD
+
+title Diagramme de séquence : Passer une commande
+
+ref over U : Authentification
+
+
+U -> PIHM : Ajouter produit(s) au panier
+activate U
+activate PIHM
+PIHM -> PCTRL : ajouterProduitAuPanier(idProduit, qté)
+deactivate PIHM
+
+U -> AIHM : Valider le panier et procéder au paiement
+activate AIHM
+AIHM -> ACTRL : validerPayement(infosPaiement)
+activate ACTRL
+
+alt Paiement validé
+    ACTRL --> AIHM : "Paiement OK"
+    AIHM -> CCMD : creeCommande(monPanier)
+    activate CCMD
+    CCMD -> CMD : enregistrerCommande()
+    deactivate CMD
+    CCMD --> AIHM : "Commande créée"
+    deactivate CCMD
+
+    AIHM --> U : "Commande confirmée"
+else Paiement refusé
+    ACTRL --> AIHM : "Paiement échoué"
+    AIHM --> U : "Echec de paiement"
+end
+
+deactivate ACTRL
+deactivate AIHM
+deactivate U
+@enduml

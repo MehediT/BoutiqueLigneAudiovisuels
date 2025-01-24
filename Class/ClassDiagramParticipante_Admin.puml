@@ -1,0 +1,136 @@
+@startuml
+hide circle
+skinparam linetype ortho
+skinparam lineStyle jumps
+
+'------------------- IHM -------------------'
+
+class GestionDesProduitsIHM <<interface>>{
+    + afficherGestionDesProduits(): void
+}
+
+class GestionDesComptesIHM <<interface>>{
+    + afficherGestionDesComptes(): void
+}
+class GestionDetailleComptesIHM <<interface>>{
+    + afficherGestionDetailleCompte(): void
+}
+
+class GestionDesCategoriesIHM <<interface>>{
+    + afficherGestionDesCategories(): void
+}
+
+class GestionDetailleProduitIHM <<interface>>{
+    + afficherGestionDetailleProduit(): void
+}
+
+class HomeAdminIHM <<interface>>{
+    + afficherHomeAdmin(): void
+}
+
+'------------------- Contrôleur -------------------'
+
+class CompteControleur <<controleur>>{
+    + getCompte(): List<Utilisateur>
+    + creeUnCompte(): boolean
+}
+class ProduitControleur <<controleur>>{
+    + getProduits(): List<Produit>
+    + getCategorieProduits(): List<Categorie>
+    + rechercherProduit(): List<Produit>
+    + getProduitPromotion(): List<Produit>
+}
+class NavigationControleur <<controleur>>{
+    + redirigerVersPage(String route): void
+}
+class HomeAdminControleur <<controleur>>{
+    + getAdminStatistique(): void
+}
+class GestionDesProduitsControleur <<controleur>>{
+    + modifierProduit(): void
+    + supprimerProduit(): void
+}
+class GestionCompteControleur <<controleur>>{
+    + validerCompes(): void
+    + supprimerCompte(): void
+
+}
+class GestionDetailleCompteControleur <<controleur>>{
+    + validerCompes(): void
+    + modifierCompte(): void
+    + supprimerCompte(): void
+}
+class GestionDesCategoriesControleur <<controleur>>{
+    + ajouterCategorie(): void
+    + supprimerCategorie(): void
+}
+
+'-------------------Laison-------------------'
+NavigationControleur <--> HomeAdminIHM
+NavigationControleur <--> GestionDesProduitsIHM
+NavigationControleur <--> GestionDesComptesIHM
+NavigationControleur <--> GestionDesCategoriesIHM
+
+CompteControleur --> Compte
+
+ProduitControleur --> Produit
+
+HomeAdminIHM --> HomeAdminControleur
+HomeAdminControleur --> Produit
+HomeAdminControleur --> Compte
+HomeAdminControleur --> Commande
+
+GestionDesProduitsIHM --> ProduitControleur
+GestionDesProduitsIHM --> GestionDesProduitsControleur
+GestionDesProduitsIHM --> GestionDetailleProduitIHM
+GestionDesComptesIHM -- GestionDetailleComptesIHM
+
+GestionDesProduitsControleur --> Produit
+
+GestionDetailleProduitIHM --> ProduitControleur
+GestionDetailleProduitIHM --> GestionDesProduitsControleur
+
+GestionDesComptesIHM --> CompteControleur
+GestionDesComptesIHM --> GestionCompteControleur
+
+GestionCompteControleur --> Compte
+
+GestionDetailleComptesIHM --> CompteControleur
+GestionDetailleComptesIHM --> GestionDetailleCompteControleur
+
+GestionDetailleCompteControleur --> Compte
+
+GestionDesCategoriesIHM --> ProduitControleur
+GestionDesCategoriesIHM --> GestionDesCategoriesControleur
+GestionDesCategoriesControleur --> Categorie
+
+'------------------- Class / Entity -------------------'
+
+abstract class Compte <<entity>><<abstract>> {
+    - int id
+    - String email
+    - String motDePasse
+    - String nom
+    - String prenom
+    - String avatar
+}
+class Produit <<entity>>{
+    - int id
+    - String nom
+    - String description
+    - double prix
+    - int stock
+    - boolean promotion
+}
+class Commande <<entity>> {
+    - int id
+    - String numeroCommande
+    - Date dateCommande
+    - String statut
+}
+class Categorie <<entity>> {
+    - int id
+    - String nom
+}
+
+@enduml

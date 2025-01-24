@@ -4,7 +4,19 @@ actor User
 participant "System" as System
 
 User -> System : Fournir les informations d'identification
-System -> System : Vérifier les informations
-System -> User : Résultat de l'authentification
+
+alt Vérification des informations
+    System -> System : Vérifier les informations
+    loop Tentatives incorrectes
+        System -> User : Notifier des erreurs
+        User -> System : Soumettre à nouveau les informations
+    end
+end
+
+alt Authentification réussie
+    System -> User : Confirmation de l'authentification
+else Authentification échouée
+    System -> User : Échec de l'authentification
+end
 
 @enduml

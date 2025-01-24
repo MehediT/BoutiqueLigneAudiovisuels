@@ -1,0 +1,34 @@
+@startuml
+!theme plain
+autonumber
+
+actor "Administrateur" as A
+participant "ConnexionIHM" as ConnIHM
+participant "GestionCompteControleur" as GCC
+participant "Compte" as C
+
+title Diagramme de séquence : Authentification + Radiation d'un compte
+activate A
+activate ConnIHM
+ref over A, ConnIHM : Authentification
+A -> ConnIHM : Ouvrir formulaire de radiation de compte
+ConnIHM -> GCC : demanderRadiation(idCompteCible)
+activate GCC
+GCC -> C : supprimerCompte(idCompteCible)
+activate C
+
+alt Compte supprimer
+    C --> GCC : [OK]
+    GCC --> ConnIHM : Confirmation "Compte radié"
+    ConnIHM --> A : "Compte radié avec succès"
+else Compte invalide
+    C --> GCC : [KO]
+deactivate C
+    GCC --> ConnIHM : Erreur "Compte introuvable"
+    ConnIHM --> A : "Échec : compte introuvable"
+end
+
+deactivate GCC
+deactivate C
+deactivate A
+@enduml

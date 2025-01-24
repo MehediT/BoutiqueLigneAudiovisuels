@@ -1,81 +1,69 @@
 @startuml
 
 class Boutique {
-    + naviguerApplication(): void
-    + afficherCategories(): void
-    + rechercherProduit(): void
 }
 
 abstract class Compte <<abstract>> {
+    - int id
     - String email
     - String motDePasse
     - String nom
     - String prenom
     - String avatar
-    + envoyerMessage(): void
 }
 
 interface Client <<interface>>{
-    + consulterProduits(): void
-    + consulterPromotions(): void
 }
 
 class Utilisateur {
+    - int id
     - String adressePostale
     - String telephone
-    + aimerProduit(Produit): void
-    + acheterProduit(Produit): void
-    + validerPanier(): Commande
-    + consulterPanier(): void
-    + radierCompte(): void
-    + creePanier(): void
 }
 
 class Visiteur {
-    + creeCompte(): void
 }
 
 class Administrateur {
-    + gererComptes(Utilisateur u): void
-    + gererProduits(): void
-    + radierCompte(Compte c): void
+    - int id
 }
 
 class Produit {
-    - int idProduit
+    - int id
     - String nom
     - String description
     - double prix
     - int stock
-    + ajoutNote(Note n): void
 }
 
 class Commande {
-    - int numeroCommande
+    - int id
+    - String numeroCommande
     - Date dateCommande
     - String statut
 }
 
 class Panier {
+    - int id
     - int numeroPanier
-    + ajouterProduit(Produit p): void
-    + validerCommande(): void
 }
 
 class Categorie {
+    - int id
     - String nom
-    + afficherProduits(): void
 }
 
 '------------------------------------------------
 'Relations
 
 class Note {
+    - int id
     - int noteSatisfaction
     - String commentaire
 }
 
 class Message {
+    - int id
     - String message
     - String contactEmail
 }

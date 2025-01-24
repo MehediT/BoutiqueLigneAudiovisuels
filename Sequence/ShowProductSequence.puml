@@ -4,6 +4,18 @@ actor Visitor
 participant "System" as System
 
 Visitor -> System : Demander à voir les produits
-System -> Visitor : Retourner la liste des produits
+activate Visitor
+activate System
 
+System -> Visitor : Retourner la liste des produits
+alt Produits disponibles
+    Visitor -> System : Sélectionner un produit
+    System -> Visitor : Afficher les détails du produit
+else Aucun produit disponible
+    System -> Visitor : Afficher un message "Aucun produit disponible"
+end
+
+deactivate System
+
+title Diagramme de séquence avec cycle de vie, boucles et conditions alternatives
 @enduml

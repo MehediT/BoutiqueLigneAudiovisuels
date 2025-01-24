@@ -1,0 +1,28 @@
+@startuml
+!theme plain
+autonumber
+
+actor "Utilisateur" as U
+participant "DetailleProduitIHM" as DPIHM
+participant "Note" as N
+actor "Visiteur" as V
+
+title Diagramme de séquence : Évaluer le site
+activate U
+ref over U : Authentification
+
+U -> DPIHM : Saisir note de satisfaction
+activate DPIHM
+DPIHM -> N : enregistrerNote(note, commentaire, idUser)
+deactivate DPIHM
+
+
+V -> DPIHM : Consulter notes de satisfaction
+activate V
+activate DPIHM
+DPIHM -> N : getListeNotes()
+N --> DPIHM : [liste de notes]
+DPIHM --> V : Afficher les notes
+deactivate DPIHM
+deactivate V
+@enduml
